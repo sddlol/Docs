@@ -1,21 +1,30 @@
-# [Combined]-Improbable（简译）
+# [Combined] Improbable（精修）
 
 Language: [English](../../../Settings/Checks/[Combined]-Improbable.md) | **简体中文**
 
-- 配置路径：`combined.improbable`
+- 配置路径：`checks.combined.improbable`
 - 绕过权限：`nocheatplus.checks.combined.improbable`
 - 豁免枚举：`COMBINED_IMPROBABLE`
 
-聚合多检查喂入的数据，识别“统计上不合理”的行为模式。
+Improbable 是一个“组合型启发式检查”。它不只看单次事件，而是把其他检查提供的可疑信号累积起来，判断玩家行为在统计意义上是否“不太可能”。
+
+## 主要配置
+
+| 选项 | 说明 |
+|---|---|
+| `level` | 容忍等级。值越高越宽松，触发越慢；值越低越敏感。 |
 
 ## 使用建议
 
-- 建议先以记录/取消为主，再逐步提高惩罚强度。
-- 对高延迟与低 TPS 场景保留容错，避免误报。
-- 与同类检查联动调参（如 moving/fight/net 组合）。
+- Improbable 适合当“二次判定器”：不要单独拉太满，最好和 Reach/Scaffold/FastClick 等联合。
+- 先观察喂入来源（哪些检查贡献最大），再调整 `level`。
+- 高延迟或高波动服建议略放宽，避免“噪声叠加误报”。
+
+## 备注
+
+- 这类检查对“持续异常模式”更有效，对单次爆点不一定最敏感。
+- 你可以把它理解为“行为画像风险分”。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
 - [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
-
-> 本页为社区简译，细节请以英文原文和当前代码实现为准。
