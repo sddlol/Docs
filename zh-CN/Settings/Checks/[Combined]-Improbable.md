@@ -1,29 +1,109 @@
-# [Combined] Improbable（精修）
+# [Combined] Improbable（证据融合中枢）
 
 Language: [English](../../../Settings/Checks/[Combined]-Improbable.md) | **简体中文**
 
-- 配置路径：`checks.combined.improbable`
+- 配置路径（核心）：`checks.combined.improbable`
 - 绕过权限：`nocheatplus.checks.combined.improbable`
 - 豁免枚举：`COMBINED_IMPROBABLE`
 
-Improbable 是一个“组合型启发式检查”。它不只看单次事件，而是把其他检查提供的可疑信号累积起来，判断玩家行为在统计意义上是否“不太可能”。
+Improbable 是组合型元检查：把多个检查持续喂入的“可疑信号”累积后，再统一升级判罚。  
+在本 fork 中，它也是 staged evidence（分阶段证据）联动的核心。
 
-## 主要配置
+## 核心项
 
 | 选项 | 说明 |
 |---|---|
-| `level` | 容忍等级。值越高越宽松，触发越慢；值越低越敏感。 |
+| `level` | Improbable 容忍等级。越高越宽松、处罚越慢。 |
+| `actions` | Improbable 触发后的动作链（cancel/log/kick 等）。 |
 
-## 使用建议
+## 证据 profile 系统（P4~P7）
 
-- Improbable 适合当“二次判定器”：不要单独拉太满，最好和 Reach/Scaffold/FastClick 等联合。
-- 先观察喂入来源（哪些检查贡献最大），再调整 `level`。
-- 高延迟或高波动服建议略放宽，避免“噪声叠加误报”。
+配置根：`checks.combined.evidence`
 
-## 备注
+### 全局 profile
 
-- 这类检查对“持续异常模式”更有效，对单次爆点不一定最敏感。
-- 你可以把它理解为“行为画像风险分”。
+| 选项 | 可选值 | 默认值 | 说明 |
+|---|---|---|---|
+| `profile` | `balanced` / `strict` | `balanced` | 全局证据倍率配置（阈值与权重缩放）。 |
+
+### 分检查覆盖（override）
+
+路径：`checks.combined.evidence.overrides.*`  
+每项可选值：`inherit` / `balanced` / `strict`（默认 `inherit`）
+
+- `moving-timer`
+- `moving-velocity`
+- `fight-reach`
+- `blockplace-reach`
+- `blockplace-scaffold`
+- `net-attackfrequency`
+- `net-flyingfrequency`
+- `net-wrongturn`
+- `net-keepalivefrequency`
+- `net-packetfrequency`
+
+`inherit` 表示“跟随全局 `checks.combined.evidence.profile`”。
+
+### Debug 与限频（P7）
+
+| 选项 | 默认值 | 说明 |
+|---|---:|---|
+| `debug.active` | `true` | 启用 evidence profile 调试打点（需对应检查 debug 也开启）。 |
+| `debug.min-interval-ms` | `1000` | 每个玩家+来源的最小输出间隔，防刷日志。 |
+
+## 推荐模板
+
+### 1）竞技 / PvP 服务器
+
+```yaml
+checks:
+  combined:
+    evidence:
+      profile: strict
+      overrides:
+        moving-timer: balanced
+        moving-velocity: strict
+        fight-reach: strict
+        blockplace-reach: strict
+        blockplace-scaffold: strict
+        net-attackfrequency: strict
+        net-flyingfrequency: strict
+        net-wrongturn: strict
+        net-keepalivefrequency: balanced
+        net-packetfrequency: strict
+      debug:
+        active: true
+        min-interval-ms: 1500
+```
+
+### 2）生存 / 长时在线混合玩法
+
+```yaml
+checks:
+  combined:
+    evidence:
+      profile: balanced
+      overrides:
+        moving-timer: balanced
+        moving-velocity: balanced
+        fight-reach: balanced
+        blockplace-reach: balanced
+        blockplace-scaffold: strict
+        net-attackfrequency: balanced
+        net-flyingfrequency: balanced
+        net-wrongturn: strict
+        net-keepalivefrequency: balanced
+        net-packetfrequency: balanced
+      debug:
+        active: true
+        min-interval-ms: 2500
+```
+
+## 调参建议
+
+- 建议先全局 `balanced`，再对高价值检查单独 override 到 `strict`。
+- `net-wrongturn` 通常可长期保持 strict（误报风险很低）。
+- 如果 trace 日志太多，优先增大 `debug.min-interval-ms`，再考虑关 debug。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
