@@ -1,29 +1,23 @@
-# [Combined] EnderPearl（精修）
+# [Combined] EnderPearl（源码对齐版）
 
 Language: [English](../../../Settings/Checks/[Combined]-Enderpearl.md) | **简体中文**
 
 - 配置路径：`checks.combined.enderpearl`
-- 绕过权限：`nocheatplus.checks.combined.enderpearl`
-- 豁免枚举：`COMBINED_ENDERPEARL`
 
-EnderPearl 检测末影珍珠相关异常传送，防止穿墙、非法落点、液体滥用等。
+EnderPearl 在当前分支为 **Combined 配置 + BlockInteract 执行** 的联动项。
 
-## 主要配置
+## 主要配置（默认值）
 
-| 选项 | 说明 |
-|---|---|
-| `preventclickblock` | 防止利用点击方块上下文触发异常珍珠行为。 |
-| `preventindliquids` | 在液体环境中限制异常珍珠触发。 |
-| `check.untracked` | 检测未被追踪到的珍珠实体相关异常。 |
-| `check.maxydist` | 珍珠落点最大 Y 偏差限制。 |
-| `setbackpolicy.*` | 违规后的回拉策略（含坠落伤害、虚空处理）。 |
-| `actions` | 动作链。 |
+| 选项 | 默认值 | 说明 |
+|---|---:|---|
+| `active` | `true` | 开关。 |
+| `prevent-click-on-block` | `true` | 右键不可通过方块时拒绝使用末影珍珠。 |
 
-## 调参建议
+## 行为说明
 
-- 末影珍珠玩法重的服务器先放宽，再逐步收紧 `check.maxydist`。
-- 回拉策略建议与 Moving 的 setback 策略统一。
+- 逻辑在 `BlockInteractListener#checkEnderPearlRightClickBlock`：
+  - 点击方块不可通过 + 开关开启 -> `event.setUseItemInHand(Result.DENY)`。
 
-## 相关
-- [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
-- [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
+## 注意
+
+- 该功能并非独立 `CheckType`；没有单独 `nocheatplus.checks.combined.enderpearl` bypass 权限声明。

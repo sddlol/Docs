@@ -1,27 +1,21 @@
-# [Inventory] InventoryMove（精修）
+# [Inventory] InventoryMove（状态说明版）
 
 Language: [English](../../../Settings/Checks/[Inventory]-Inventorymove.md) | **简体中文**
 
-- 配置路径：`checks.inventory.inventorymove`
-- 绕过权限：`nocheatplus.checks.inventory.inventorymove`
-- 豁免枚举：`INVENTORY_INVENTORYMOVE`
+- 配置路径（历史）：`checks.inventory.inventorymove`
 
-InventoryMove 用于检测“开背包/容器时仍做不可能动作”（移动、潜行、游泳等组合异常）。
+## 当前分支状态
 
-## 主要配置
+当前分支中未发现 `InventoryMove` 独立检查接入（未在 `CheckType` 注册，也未在 `InventoryConfig` 读取这些键）。
 
-| 选项 | 说明 |
-|---|---|
-| `disable_creative` | 是否跳过创造模式玩家。 |
-| `hdistdivisor` | 水平位移阈值分母。数值越大，判定越严格。 |
-| `improbable.feedonly` | 仅向 Improbable 喂数据，或也能直接触发其违规。 |
-| `improbable.weight` | 向 Improbable 的权重。0 表示不喂。 |
+`ConfPaths` 保留了历史键（如 `disable_creative` / `hdistdivisor` / `improbable.*`），但当前分支主要通过：
 
-## 调参建议
+- `INVENTORY_MOREINVENTORY`（代码硬逻辑）
+- `INVENTORY_OPEN`（开背包移动即强制关闭）
 
-- 若误报集中在高 ping 用户，先放宽 `hdistdivisor`。
-- 与 FastClick、Open 联动观察可更准确定位库存类外挂。
+来覆盖相关场景。
 
-## 相关
-- [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
-- [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
+## 建议
+
+- 需要“开包移动限制”时，优先调 `checks.inventory.open.*`。
+- 若要恢复历史 InventoryMove 参数化行为，需要先重新接入检查实现链路。

@@ -1,25 +1,32 @@
-# [Fight] General（精修）
+# [Fight] General（源码对齐版）
 
 Language: [English](../../../Settings/Checks/[Fight]-General.md) | **简体中文**
 
-Fight.General 提供战斗检查的公共参数，影响 Reach/Direction/Angle/Critical 等子检查行为。
+- 配置路径：`checks.fight`
+- 分组绕过权限：`nocheatplus.checks.fight`
+
+> 本页只覆盖 **当前分支实际生效** 的 Fight 公共项（按 `FightConfig + FightListener + DefaultConfig` 对齐）。
 
 ## 主要配置
 
-| 选项 | 说明 |
-|---|---|
-| `maxangle` | 视角夹角基础限制，用于战斗方向类判定。 |
-| `toolchangepenalty` | 切换工具后的额外惩罚时间（ms），用于抑制切换绕过。 |
-| `playerdamage` | 对玩家目标的战斗检查总开关。 |
-| `pvp` | 玩家对玩家（PVP）检查总开关。 |
-| `loops.maxlatencyticks` | 循环回溯最大延迟 ticks（trace 循环窗口）。 |
+| 选项 | 默认值 | 说明 |
+|---|---:|---|
+| `cancel-dead` | `true` | 取消死亡玩家继续攻击。 |
+| `enforce-item-release` | `true` | 攻击时强制释放使用中物品状态（抑制部分交互绕过）。 |
+| `enforce-closed-inventory` | `true` | 攻击前要求关闭背包相关状态。 |
+| `tool-change-penalty` | `0` | 切换热键栏物品后的攻击惩罚时间（毫秒）。`0` 表示关闭。 |
+| `max-loop-latency-ticks` | `8` | Direction/Reach 回溯循环允许的最大延迟 tick。 |
+| `knockback-velocity` | `default` | 是否启用 PvP 击退速度补偿（自动按版本决策）。 |
+
+## 兼容/历史项说明
+
+- `checks.fight.yawrate.active` 在本分支仍有默认值，但实际判定走的是 `checks.combined.yawrate`（见 FightListener 对 Combined 的调用）。
 
 ## 调参建议
 
-- 先在 PVP 服务器验证 `maxangle` 和 `loops.maxlatencyticks`。
-- 延迟高时先放宽 latency ticks，再通过动作链（cancel/log）补强。
-- 不建议直接关 `pvp`，会放大战斗绕过空间。
+- 高延迟服优先调 `max-loop-latency-ticks`，再调具体子检查阈值。
+- `tool-change-penalty` 不建议激进增大，容易影响正常 PvP 手感。
 
 ## 相关
-- [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
-- [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
+- [Fight Reach](./[Fight]-Reach.md)
+- [Combined Yawrate](./[Combined]-Yawrate.md)

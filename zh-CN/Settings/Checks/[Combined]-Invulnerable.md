@@ -1,25 +1,22 @@
-# [Combined] Invulnerable（精修）
+# [Combined] Invulnerable（源码对齐版）
 
 Language: [English](../../../Settings/Checks/[Combined]-Invulnerable.md) | **简体中文**
 
 - 配置路径：`checks.combined.invulnerable`
-- 绕过权限：`nocheatplus.checks.combined.invulnerable`
-- 豁免枚举：`COMBINED_INVULNERABLE`
 
-Invulnerable 用于限制不合理无敌时间窗口（伤害免疫滥用）。
+Invulnerable 用于控制登录后无敌窗口的滥用。
 
-## 主要配置
+## 主要配置（默认值）
 
-| 选项 | 说明 |
-|---|---|
-| `initialticks.join` | 玩家加入后初始无敌 tick 数。 |
-| `initialticks.respawn` | 玩家重生后初始无敌 tick 数。 |
+| 选项 | 默认值 | 说明 |
+|---|---:|---|
+| `active` | `true` | 开关。 |
+| `triggers.always` | `false` | 是否总是应用该机制。 |
+| `triggers.falldistance` | `true` | 当存在下落距离时触发。 |
+| `initialticks.join` | `-1` | 登录初始无敌 tick；`-1` 表示跟随 MC 原值。 |
+| `ignore` | `['FALL']` | 忽略的伤害类型。 |
+| `modifiers.all` | `0` | 全局伤害类型修正值。 |
 
-## 调参建议
+## 注意
 
-- 如果你有自定义重生保护插件，先核对双方无敌窗口避免冲突。
-- 不建议把初始窗口设得过低，可能误伤正常重生流程。
-
-## 相关
-- [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
-- [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
+- 该功能由 `CombinedListener` 处理，不是独立 `CheckType`。
