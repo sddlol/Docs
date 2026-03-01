@@ -1,21 +1,25 @@
-# [Combined]-Invulnerable（简译）
+# [Combined] Invulnerable（精修）
 
 Language: [English](../../../Settings/Checks/[Combined]-Invulnerable.md) | **简体中文**
 
-- 配置路径：`combined.invulnerable`
+- 配置路径：`checks.combined.invulnerable`
 - 绕过权限：`nocheatplus.checks.combined.invulnerable`
 - 豁免枚举：`COMBINED_INVULNERABLE`
 
-检测不合理无敌状态与伤害免疫滥用。
+Invulnerable 用于限制不合理无敌时间窗口（伤害免疫滥用）。
 
-## 使用建议
+## 主要配置
 
-- 建议先以记录/取消为主，再逐步提高惩罚强度。
-- 对高延迟与低 TPS 场景保留容错，避免误报。
-- 与同类检查联动调参（如 moving/fight/net 组合）。
+| 选项 | 说明 |
+|---|---|
+| `initialticks.join` | 玩家加入后初始无敌 tick 数。 |
+| `initialticks.respawn` | 玩家重生后初始无敌 tick 数。 |
+
+## 调参建议
+
+- 如果你有自定义重生保护插件，先核对双方无敌窗口避免冲突。
+- 不建议把初始窗口设得过低，可能误伤正常重生流程。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
 - [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
-
-> 本页为社区简译，细节请以英文原文和当前代码实现为准。

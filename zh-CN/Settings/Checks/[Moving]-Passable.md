@@ -1,4 +1,4 @@
-# [Moving]-Passable（简译）
+# [Moving] Passable（精修）
 
 Language: [English](../../../Settings/Checks/[Moving]-Passable.md) | **简体中文**
 
@@ -6,16 +6,23 @@ Language: [English](../../../Settings/Checks/[Moving]-Passable.md) | **简体中
 - 绕过权限：`nocheatplus.checks.moving.passable`
 - 豁免枚举：`MOVING_PASSABLE`
 
-检测穿墙/不可通过方块位移。
+Passable 用于检测玩家穿过不可通过方块（墙、实体碰撞方块等）的位移。
 
-## 使用建议
+## 主要配置
 
-- 建议先以记录/取消为主，再逐步提高惩罚强度。
-- 对高延迟与低 TPS 场景保留容错，避免误报。
-- 与同类检查联动调参（如 moving/fight/net 组合）。
+| 选项 | 说明 |
+|---|---|
+| `raytracing.active` | 是否启用射线式可通过判定。 |
+| `raytracing.blockchangeonly` | 仅在方块变化时触发射线判定（减负）。 |
+| `raytracing.vcliponly` | 仅垂直穿透方向做重点判定。 |
+| `raytracing.steps` | 射线步数（越高越精细，开销越大）。 |
+
+## 调参建议
+
+- 穿墙问题严重时优先开启 raytracing。
+- 如果误报在狭窄地形较多，可先降低 steps 或放宽动作链。
+- 与 Moving 回滚策略联动（setback）通常效果最好。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
 - [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
-
-> 本页为社区简译，细节请以英文原文和当前代码实现为准。

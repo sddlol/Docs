@@ -1,21 +1,27 @@
-# [Net]-General（简译）
+# [Net] General（精修）
 
 Language: [English](../../../Settings/Checks/[Net]-General.md) | **简体中文**
 
-- 配置路径：`net`
-- 绕过权限：`nocheatplus.checks.net`
-- 豁免枚举：`NET`
+Net.General 是网络检查总入口，涵盖攻击包频率、移动包频率、keepalive、包总频率等。
 
-网络检查总开关与公共参数。
+## 主要配置
 
-## 使用建议
+| 选项 | 说明 |
+|---|---|
+| `attackfrequency.*` | 攻击包频率类限制。 |
+| `flyingfrequency.*` | flying/position 类移动包频率限制。 |
+| `packetfrequency.*` | 总包频率限制。 |
+| `keepalivefrequency.*` | keepalive 频率与异常行为限制。 |
+| `sounddistance.*` | 声音相关数据距离检查。 |
+| `wrongturn.*` | 非法朝向（pitch）检查。 |
+| `moving.*` | 与移动事件耦合的网络侧限制。 |
 
-- 建议先以记录/取消为主，再逐步提高惩罚强度。
-- 对高延迟与低 TPS 场景保留容错，避免误报。
-- 与同类检查联动调参（如 moving/fight/net 组合）。
+## 调参建议
+
+- 网络检查建议分层开启：先 `packetfrequency` 与 `wrongturn`，再收紧其他。
+- 高延迟服不要同时把所有频率阈值拉满，否则误报会叠加。
+- 与 Moving/Fight 联动观察日志，判断是“包速率异常”还是“行为异常”。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
 - [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
-
-> 本页为社区简译，细节请以英文原文和当前代码实现为准。

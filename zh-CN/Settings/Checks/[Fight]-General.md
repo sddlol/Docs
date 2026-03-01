@@ -1,21 +1,25 @@
-# [Fight]-General（简译）
+# [Fight] General（精修）
 
 Language: [English](../../../Settings/Checks/[Fight]-General.md) | **简体中文**
 
-- 配置路径：`checks.fight`
-- 绕过权限：`nocheatplus.checks.fight`
-- 豁免枚举：`FIGHT`
+Fight.General 提供战斗检查的公共参数，影响 Reach/Direction/Angle/Critical 等子检查行为。
 
-战斗检查公共参数与总开关。
+## 主要配置
 
-## 使用建议
+| 选项 | 说明 |
+|---|---|
+| `maxangle` | 视角夹角基础限制，用于战斗方向类判定。 |
+| `toolchangepenalty` | 切换工具后的额外惩罚时间（ms），用于抑制切换绕过。 |
+| `playerdamage` | 对玩家目标的战斗检查总开关。 |
+| `pvp` | 玩家对玩家（PVP）检查总开关。 |
+| `loops.maxlatencyticks` | 循环回溯最大延迟 ticks（trace 循环窗口）。 |
 
-- 建议先以记录/取消为主，再逐步提高惩罚强度。
-- 对高延迟与低 TPS 场景保留容错，避免误报。
-- 与同类检查联动调参（如 moving/fight/net 组合）。
+## 调参建议
+
+- 先在 PVP 服务器验证 `maxangle` 和 `loops.maxlatencyticks`。
+- 延迟高时先放宽 latency ticks，再通过动作链（cancel/log）补强。
+- 不建议直接关 `pvp`，会放大战斗绕过空间。
 
 ## 相关
 - [Active](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#active)
 - [Actions](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/General.md#actions)
-
-> 本页为社区简译，细节请以英文原文和当前代码实现为准。
