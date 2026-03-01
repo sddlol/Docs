@@ -2,21 +2,23 @@
 
 Language: [English](../../../Settings/Checks/Checks.md) | **简体中文**
 
-> 英文原文：<https://github.com/Updated-NoCheatPlus/Docs/blob/master/Settings/Checks/Checks.md>
+> 本页提供中文检查项索引。若有细节差异，请以英文原文和当前代码实现为准。
 
-NCP 检查项大致分组：
-- Moving（移动）
-- Fight（战斗）
-- BlockPlace / BlockBreak / BlockInteract（方块相关）
-- Inventory（库存）
-- Chat（聊天）
-- Net（网络）
-- Combined（组合）
+## Fight（战斗）
+- [[Fight]-Reach](./[Fight]-Reach.md)
+- [[Fight]-Angle](./[Fight]-Angle.md)
+- [[Fight]-Direction](./[Fight]-Direction.md)
 
-调参建议：
-1. 新服先“记录/取消”为主，保留证据。
-2. 对高延迟和低 TPS 场景预留容错。
-3. 逐组调参，不要一次性全局收紧。
-4. 重点看误报最多的 2~3 个检查先优化。
+## Moving（移动）
+- [[Moving]-Survivalfly](./[Moving]-Survivalfly.md)
+- [[Moving]-Creativefly](./[Moving]-Creativefly.md)
+- [[Moving]-Morepackets](./[Moving]-Morepackets.md)
+- [[Moving]-Nofall](./[Moving]-Nofall.md)
 
-详细子检查说明请按英文目录逐项查看。
+## BlockPlace（方块放置）
+- [[Blockplace]-Reach](./[Blockplace]-Reach.md)
+- [[Blockplace]-Scaffold](./[Blockplace]-Scaffold.md)
+- [[Blockplace]-Fastplace](./[Blockplace]-Fastplace.md)
+
+## 原文入口
+- 英文 checks 目录：<https://github.com/Updated-NoCheatPlus/Docs/tree/master/Settings/Checks>
