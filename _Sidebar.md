@@ -1,3 +1,5 @@
+Language: [English](README) | [简体中文](zh-CN/README)
+
 ## [Home](Home)  
 * [Getting Started](Getting-Started)
 * [FAQ](FAQ)

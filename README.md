@@ -1,7 +1,12 @@
 ![Title](https://raw.githubusercontent.com/asofold/NCPDocs/master/wiki/resources/sNCPBanner.gif)
 
 # Welcome to the wiki 
+
+Language: **English** | [简体中文](./zh-CN/README.md)
+
 This page will explain everything that you need to know about NoCheatPlus.
+
+中文文档入口（社区翻译）：[zh-CN/README.md](./zh-CN/README.md)
 
 NoCheatPlus is a Bukkit (CraftBukkit/Spigot) plugin meant to protect your server from various kinds of cheating. A wide area of cheats is covered, such as player and vehicle moving, interaction, block breaking and placing, fighting, chat and other types of areas including client behavior that might crash the server.
 NCP’s popularity and open-source nature means that we are obligated to adopt a different approach in how we block cheats in order to not resort in the infamous ‘cat-and-mice’ play with us spending countless of hours trying to keep up with cheat clients. Have a look at the [Fundamentals page](https://github.com/Updated-NoCheatPlus/Docs/blob/master/Fundamentals.md) for more details on our approach.
